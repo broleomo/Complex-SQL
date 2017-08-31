@@ -10,7 +10,7 @@ CREATE TABLE todos (
 
 INSERT INTO todos (title, priority, created_at, completed_at)
 VALUES
-('Gym', 0, NOW(), NULL)
+('Gym', 0, NOW(), NULL),
 ('Grocery Store', 1, '2017-12-24 12:24:44', NOW()),
 ('Clean Room',2, '2017-01-02 01:24:44', NULL),
 ('Order Pizza', 2,'2016-01-02 01:24:44', '2017-07-02 01:24:44'),
@@ -31,6 +31,8 @@ VALUES
 ('Go to concert', 2, NOW(), NULL),
 ('Get Married', 3, NOW(), NULL);
 
+
+SELECT * FROM todos;
 -- Number 1
 SELECT * FROM todos WHERE completed_at IS NULL AND priority = 3;
 -- Number 2
@@ -39,7 +41,12 @@ FROM todos WHERE completed_at IS NULL
 GROUP BY priority;
 -- Number 3
 SELECT COUNT(id)
-FROM todos WHERE created_at >= DATEADD(created_at,-30,getdate())
-and created_at <= getdate();
+FROM todos
+WHERE created_at > '2017-08-01'
+AND created_at <= NOW()
+GROUP BY priority;
 -- Number 4
-SELECT * FROM todos WHERE priority > 9 AND created_at MIN();
+SELECT title,details,priority
+FROM todos
+WHERE completed_at is NULL
+ORDER BY priority, created_at;
